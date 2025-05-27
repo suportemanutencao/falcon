@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROV Falcon - Oceânica Engenharia</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #043927; /* Verde petróleo escuro */
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #025939; /* Verde Petrobras */
+        }
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+        }
+        .gallery img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #025939;
+            font-size: 0.9em;
+        }
+        a {
+            color: #7fffd4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ROV Falcon</h1>
+        <p>Oceânica Engenharia e Consultoria</p>
+    </header>
+
+    <section class="gallery">
+        <img src="https://www.oceanica.com.br/assets/images/oceanica1.jpg" alt="Oceânica Engenharia">
+        <img src="https://www.saab.com/globalassets/products/underwater-systems/falcon/falcon-rov.jpg" alt="Falcon ROV">
+        <img src="https://www.oceanica.com.br/assets/images/oceanica2.jpg" alt="Operação Oceânica">
+        <img src="https://www.saab.com/globalassets/products/underwater-systems/falcon/falcon-rov-side.jpg" alt="Falcon ROV lateral">
+    </section>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="Falcon"
+  agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
+  language-code="pt-br"
+></df-messenger>
+
+    <footer>
+        &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
+    </footer>
+</body>
+</html>
