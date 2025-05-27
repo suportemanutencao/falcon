@@ -70,9 +70,19 @@
     font-weight: bold;
     color: #ffffff;
     opacity: 1;
-    pointer-events: none; /* garante que clique passa para a imagem/link */
+    pointer-events: none;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
+.image-container:hover .overlay {
+    transform: scale(1.1);
+    color: #ffcc00; /* muda para amarelo Petrobras */
+}
+
+.image-container:active .overlay {
+    transform: scale(0.95);
+    color: #ffffff;
+}
         footer {
             text-align: center;
             padding: 20px;
