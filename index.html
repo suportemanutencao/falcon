@@ -19,20 +19,22 @@
             background-color: #025939; /* Verde Petrobras */
         }
         header h1 {
-            font-size: 3em;
-            margin: 0;
+         font-size: 2em;
+        text-align: center;
         }
         .gallery {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 40px;
             padding: 60px 20px;
         }
 .image-container {
     position: relative;
     width: 300px;
-    height: 200px;
+    height: auto;
     overflow: hidden;
+    aspect-ratio: 3/2;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -89,6 +91,14 @@
             background-color: #025939;
             font-size: 0.9em;
         }
+        @media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+    .overlay {
+        font-size: 1.5em;
+    }
+}
     </style>
 </head>
 <body>
