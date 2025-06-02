@@ -132,21 +132,6 @@
   agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
   language-code="pt-br"
 ></df-messenger>
-    <script>
-  window.addEventListener('dfMessengerLoaded', function () {
-    const dfMessenger = document.querySelector('df-messenger');
-    const shadowRoot = dfMessenger.shadowRoot;
-
-    const style = document.createElement('style');
-    style.textContent = `
-      .df-messenger-message-text {
-        text-align: justify !important;
-      }
-    `;
-
-    shadowRoot.appendChild(style);
-  });
-</script>
 
 
     <footer>
