@@ -133,14 +133,18 @@
   language-code="pt-br"
 ></df-messenger>
 <script>
-  window.addEventListener('dfMessengerLoaded', function (event) {
+window.addEventListener('dfMessengerLoaded', function (event) {
     const dfMessenger = document.querySelector('df-messenger');
     const shadowRoot = dfMessenger.shadowRoot;
-    const chatIcon = shadowRoot.querySelector('df-messenger-chat-icon');
-    if (chatIcon) {
-      chatIcon.click(); // Simula o clique no botão do chat
-    }
-  });
+
+    // Espera um pouquinho para garantir que tudo carregou
+    setTimeout(function () {
+        const chatIcon = shadowRoot.querySelector('df-messenger-chat-icon');
+        if (chatIcon) {
+            chatIcon.click();
+        }
+    }, 1000);
+});
 </script>
 
     <footer>
