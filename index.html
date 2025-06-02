@@ -122,11 +122,6 @@
         </a>
     </section>
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <style>
-    df-messenger .df-messenger-message {
-    white-space: pre-wrap;
-  }
-</style>
 <df-messenger
   intent="WELCOME"
   chat-title="Falcon"
@@ -134,19 +129,6 @@
   language-code="pt-br"
 ></df-messenger>
 
-    <script>
-  const observer = new MutationObserver(() => {
-    const messages = document.querySelectorAll('df-messenger .df-messenger-message-text');
-    messages.forEach(msg => {
-      if (!msg.dataset.processed) {
-        msg.innerHTML = msg.textContent.replace(/\\n/g, '<br>');
-        msg.dataset.processed = "true";
-      }
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-</script>
 
     <footer>
         &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
