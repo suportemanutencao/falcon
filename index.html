@@ -132,20 +132,6 @@
   agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
   language-code="pt-br"
 ></df-messenger>
-<script>
-window.addEventListener('dfMessengerLoaded', function (event) {
-    const dfMessenger = document.querySelector('df-messenger');
-    const shadowRoot = dfMessenger.shadowRoot;
-
-    // Espera um pouquinho para garantir que tudo carregou
-    setTimeout(function () {
-        const chatIcon = shadowRoot.querySelector('df-messenger-chat-icon');
-        if (chatIcon) {
-            chatIcon.click();
-        }
-    }, 1000);
-});
-</script>
 
     <footer>
         &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
