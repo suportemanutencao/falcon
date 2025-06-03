@@ -125,7 +125,39 @@
             </div>
         </a>
     </section>
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1">
+    
+</script>
+
+    <script>
+  window.addEventListener('dfMessengerLoaded', function () {
+    const dfMessenger = document.querySelector('df-messenger');
+    const shadowRoot = dfMessenger.shadowRoot;
+    const chatIcon = shadowRoot.querySelector('df-messenger-chat-icon');
+    const chatWindow = shadowRoot.querySelector('df-messenger-chat');
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length) {
+          const messages = shadowRoot.querySelectorAll('df-messenger-chat-message');
+          const lastMessage = messages[messages.length - 1];
+          const text = lastMessage?.textContent?.trim() || "";
+
+          // 🔍 Aqui está a frase que o bot precisa dizer para fechar o chat:
+          if (text.includes("Atendimento encerrado. Obrigado!")) {
+            console.log("Frase final detectada, fechando chat...");
+
+            setTimeout(() => {
+              chatIcon.click(); // Simula o clique no botão para fechar
+            }, 2000); // Espera 2 segundos antes de fechar (opcional)
+          }
+        }
+      });
+    });
+
+    observer.observe(chatWindow, { childList: true, subtree: true });
+  });
+</script>
 <df-messenger
   intent="WELCOME"
   chat-title="Falcon"
