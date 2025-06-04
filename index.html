@@ -6,7 +6,28 @@
     <title>ROV Falcon - Oceânica Engenharia</title>
     <style>
     df-messenger .df-messenger-message-text {
+    --chat-title-color: #4CAF50; /* Cor do título, se desejar */
     text-align: justify;
+  }
+    /* Seleciona o elemento do título do chat */
+  df-messenger::part(chat-header) {
+    animation: pulse 2s infinite;
+  }
+
+  /* Define a animação pulse */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
         body {
             margin: 0;
@@ -123,21 +144,17 @@
                 <div class="overlay">Manual</div>
             </div>
         </a>
-    </section> <div class="attention">
+    </section>
             <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1">
 
 </script>
    
 <df-messenger
-  animation: pulse 2s infinite;
   intent="WELCOME"
   chat-title="Falcon"
   agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
-  language-code="pt-br"
->
+  language-code="pt-br">
 </df-messenger>
-</div>
-
     <footer>
         &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
     </footer>
