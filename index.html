@@ -133,36 +133,6 @@
   chat-title="Falcon"
   agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
   language-code="pt-br"
-    <script>
-  window.addEventListener('dfMessengerLoaded', function () {
-    const dfMessenger = document.querySelector('df-messenger');
-    const shadowRoot = dfMessenger.shadowRoot;
-    const chatWindow = shadowRoot.querySelector('df-messenger-chat');
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.addedNodes.length) {
-          const messages = shadowRoot.querySelectorAll('df-messenger-chat-message');
-          const lastMessage = messages[messages.length - 1];
-          const text = lastMessage?.textContent?.trim() || "";
-
-          console.log("Mensagem detectada:", text); // Para depuração no console
-
-          // ✅ Frase que o bot envia ao finalizar o atendimento
-          if (text.includes("Atendimento encerrado. Obrigado!")) {
-            console.log("Frase final detectada. Recarregando a página...");
-
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000); // Espera 2 segundos antes de recarregar (ajustável)
-          }
-        }
-      });
-    });
-
-    observer.observe(chatWindow, { childList: true, subtree: true });
-  });
-</script>
 ></df-messenger>
 
     <footer>
