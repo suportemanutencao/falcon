@@ -141,6 +141,18 @@
 </script>
    
 <df-messenger
+  animation: pulse 2s infinite;
+    @keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+}
   intent="WELCOME"
   chat-title="Falcon"
   agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
