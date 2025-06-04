@@ -127,10 +127,16 @@
     </section>
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1">
 
+</script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="Falcon"
+  agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
+  language-code="pt-br"
+    <script>
   window.addEventListener('dfMessengerLoaded', function () {
     const dfMessenger = document.querySelector('df-messenger');
     const shadowRoot = dfMessenger.shadowRoot;
-    const chatIcon = shadowRoot.querySelector('df-messenger-chat-icon');
     const chatWindow = shadowRoot.querySelector('df-messenger-chat');
 
     const observer = new MutationObserver((mutations) => {
@@ -140,13 +146,15 @@
           const lastMessage = messages[messages.length - 1];
           const text = lastMessage?.textContent?.trim() || "";
 
-          // 🔍 Aqui está a frase que o bot precisa dizer para fechar o chat:
+          console.log("Mensagem detectada:", text); // Para depuração no console
+
+          // ✅ Frase que o bot envia ao finalizar o atendimento
           if (text.includes("Atendimento encerrado. Obrigado!")) {
-            console.log("Frase final detectada, fechando chat...");
+            console.log("Frase final detectada. Recarregando a página...");
 
             setTimeout(() => {
-              chatIcon.click(); // Simula o clique no botão para fechar
-            }, 2000); // Espera 2 segundos antes de fechar (opcional)
+              window.location.reload();
+            }, 2000); // Espera 2 segundos antes de recarregar (ajustável)
           }
         }
       });
@@ -155,11 +163,6 @@
     observer.observe(chatWindow, { childList: true, subtree: true });
   });
 </script>
-<df-messenger
-  intent="WELCOME"
-  chat-title="Falcon"
-  agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
-  language-code="pt-br"
 ></df-messenger>
 
     <footer>
