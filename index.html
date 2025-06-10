@@ -4,6 +4,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROV Falcon - Oceânica Engenharia</title>
     <style>
+        .gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px 10px;
+}
+
+.image-container {
+    flex: 1 1 300px;
+    max-width: 90vw;
+    height: auto;
+    overflow: hidden;
+    aspect-ratio: 3/2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
     df-messenger .df-messenger-message-text {
     text-align: justify;
   }
@@ -25,25 +44,6 @@
         header h1 {
          font-size: 2em;
         text-align: center;
-        }
-        .gallery {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            padding: 60px 20px;
-        }
-.image-container {
-    position: relative;
-    width: 300px;
-    height: auto;
-    overflow: hidden;
-    aspect-ratio: 3/2;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
 
 .image-container img {
     width: 100%;
