@@ -136,7 +136,7 @@
 
 .chat-tooltip.hidden {
   opacity: 0;
-  transform: translateY(-10px); /* desce um pouco ao sumir */
+  transform: translateY(20px); /* desce um pouco ao sumir */
   pointer-events: none;
 }
 
@@ -196,34 +196,35 @@
   <!-- Script para ocultar tooltip ao abrir o chat -->
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const dfMessenger = document.querySelector('df-messenger');
     const tooltip = document.getElementById('chat-tooltip');
-
     const hideTooltip = () => {
       if (tooltip && !tooltip.classList.contains('hidden')) {
         tooltip.classList.add('hidden');
       }
     };
 
-    const waitForShadow = (callback) => {
-      const tryGetButton = () => {
-        const openButton = dfMessenger?.shadowRoot?.querySelector('df-messenger-chat-open-button');
-        const innerButton = openButton?.shadowRoot?.querySelector('button');
-        if (innerButton) {
-          callback(innerButton);
-        } else {
-          setTimeout(tryGetButton, 300);
-        }
-      };
-      tryGetButton();
-    };
-
-    // Ocultar tooltip após 10 segundos automaticamente
+    // Ocultar tooltip automaticamente após 10 segundos
     setTimeout(hideTooltip, 10000);
 
-    waitForShadow((chatButton) => {
-      chatButton.addEventListener('click', hideTooltip);
-    });
+    // Esperar o carregamento completo do df-messenger
+    const waitForButton = () => {
+      const dfMessenger = document.querySelector('df-messenger');
+      if (!dfMessenger) return setTimeout(waitForButton, 300);
+
+      const shadowRoot = dfMessenger.shadowRoot;
+      if (!shadowRoot) return setTimeout(waitForButton, 300);
+
+      const chatButton = shadowRoot.querySelector('df-messenger-chat-open-button');
+      if (!chatButton || !chatButton.shadowRoot) return setTimeout(waitForButton, 300);
+
+      const button = chatButton.shadowRoot.querySelector('button');
+      if (!button) return setTimeout(waitForButton, 300);
+
+      // Quando o botão do chat for clicado, esconda o balão
+      button.addEventListener('click', hideTooltip);
+    };
+
+    waitForButton();
   });
 </script>
 
