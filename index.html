@@ -110,36 +110,9 @@
       }
     }
 
-    /* Botão personalizado animado */
-    .custom-chat-button {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      background-color: #003b49;
-      color: #fff;
-      padding: 15px 18px;
-      border-radius: 50%;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 0 12px rgba(255, 204, 0, 0.7);
-      cursor: pointer;
-      animation: pulse 1.8s infinite;
-      transition: transform 0.2s ease-in-out;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.5); }
-      50% { transform: scale(1.15); box-shadow: 0 0 18px rgba(255, 204, 0, 0.8); }
-      100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.5); }
-    }
-
-    /* Esconde botão original */
+    /* Esconde botão original para que o padrão apareça */
     df-messenger {
-      --df-messenger-chat-open-button-display: none;
+      --df-messenger-chat-open-button-display: block;
     }
   </style>
 </head>
@@ -163,9 +136,6 @@
     </a>
   </section>
 
-  <!-- Botão flutuante personalizado -->
-  <div class="custom-chat-button" title="Abrir chat">🤖</div>
-
   <!-- Dialogflow script -->
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
@@ -177,68 +147,6 @@
     language-code="pt-br">
   </df-messenger>
 
-<script>
-  const customButton = document.querySelector('.custom-chat-button');
-  const dfMessenger = document.querySelector('df-messenger');
-
-  if (!customButton || !dfMessenger) {
-    console.error('Botão customizado ou df-messenger não encontrado');
-  } else {
-    // Função para clicar no botão interno
-    function clickInternalButton() {
-      try {
-        const shadowRoot1 = dfMessenger.shadowRoot;
-        if (!shadowRoot1) return false;
-
-        const chatOpenButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
-        if (!chatOpenButton) return false;
-
-        const shadowRoot2 = chatOpenButton.shadowRoot;
-        if (!shadowRoot2) return false;
-
-        const innerButton = shadowRoot2.querySelector('button');
-        if (!innerButton) return false;
-
-        innerButton.click();
-        return true;
-      } catch(e) {
-        console.error('Erro ao clicar no botão interno:', e);
-        return false;
-      }
-    }
-
-    // Tenta clicar no botão interno imediatamente e, se falhar, usa MutationObserver para esperar aparecer
-    function setupClickListener() {
-      customButton.addEventListener('click', () => {
-        if (!clickInternalButton()) {
-          console.log('Botão interno não disponível ainda, esperando...');
-        }
-      });
-    }
-
-    // Observador para esperar o botão interno aparecer
-    function observeButton() {
-      const shadowRoot1 = dfMessenger.shadowRoot;
-      if (!shadowRoot1) {
-        setTimeout(observeButton, 300);
-        return;
-      }
-
-      const observer = new MutationObserver(() => {
-        const chatOpenButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
-        if (chatOpenButton && chatOpenButton.shadowRoot?.querySelector('button')) {
-          // Botão interno pronto, desconecta observer e configura o listener
-          observer.disconnect();
-          setupClickListener();
-        }
-      });
-
-      observer.observe(shadowRoot1, { childList: true, subtree: true });
-    }
-
-    observeButton();
-  }
-</script>
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
   </footer>
