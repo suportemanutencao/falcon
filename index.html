@@ -129,7 +129,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      user-select: none;
     }
 
     @keyframes pulse {
@@ -165,7 +164,7 @@
   </section>
 
   <!-- Botão flutuante personalizado -->
-  <div class="custom-chat-button">⚙️</div>
+  <div class="custom-chat-button" title="Abrir chat">🤖</div>
 
   <!-- Dialogflow script -->
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
@@ -179,32 +178,14 @@
   </df-messenger>
 
   <script>
-    function openChatWhenReady() {
+    function openChat() {
       const dfMessenger = document.querySelector('df-messenger');
-
       if (!dfMessenger) return;
 
-      const tryOpen = () => {
-        const shadowRoot1 = dfMessenger.shadowRoot;
-        if (!shadowRoot1) {
-          setTimeout(tryOpen, 300);
-          return;
-        }
-
-        const openButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
-        const buttonInside = openButton?.shadowRoot?.querySelector('button');
-
-        if (buttonInside) {
-          buttonInside.click();
-        } else {
-          setTimeout(tryOpen, 300);
-        }
-      };
-
-      tryOpen();
+      dfMessenger.renderCustomText('');
     }
 
-    document.querySelector('.custom-chat-button').addEventListener('click', openChatWhenReady);
+    document.querySelector('.custom-chat-button').addEventListener('click', openChat);
   </script>
 
   <footer>
