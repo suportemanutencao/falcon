@@ -116,7 +116,7 @@
       bottom: 24px;
       right: 24px;
       z-index: 9999;
-      background-color: #ffcc00;
+      background-color: #003b49;
       color: #000;
       padding: 15px 18px;
       border-radius: 50%;
@@ -161,7 +161,7 @@
   </section>
 
   <!-- Botão flutuante personalizado -->
-  <div class="custom-chat-button" onclick="openChat()">🤖</div>
+  <div class="custom-chat-button" onclick="openChat()">⚙️</div>
 
   <!-- Dialogflow script -->
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
@@ -175,36 +175,40 @@
   </df-messenger>
 
   <!-- Script para abrir o botão oculto -->
-  <script>
-    function openChat() {
-      const dfMessenger = document.querySelector('df-messenger');
-      const shadowRoot1 = dfMessenger.shadowRoot;
-      if (!shadowRoot1) return;
-
-      const openButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
-      const buttonInside = openButton?.shadowRoot?.querySelector('button');
-      buttonInside?.click();
-    }
-  </script>
-  <script>
+<script>
   function openChat() {
     const dfMessenger = document.querySelector('df-messenger');
 
-    // Espera até o Shadow DOM estar disponível
+    if (!dfMessenger) return;
+
+    // Aguarda Shadow DOM estar disponível
     const waitForButton = setInterval(() => {
       const shadowRoot1 = dfMessenger.shadowRoot;
       if (!shadowRoot1) return;
 
       const openButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
-      const buttonInside = openButton?.shadowRoot?.querySelector('button');
+      if (!openButton) return;
 
-      if (buttonInside) {
-        buttonInside.click(); // Abre o chat
-        clearInterval(waitForButton); // Para de tentar
+      const innerButton = openButton.shadowRoot?.querySelector('button');
+      if (innerButton) {
+        innerButton.click(); // Clica no botão original
+        clearInterval(waitForButton); // Para a verificação
       }
-    }, 200); // Tenta a cada 200ms até conseguir
+    }, 200);
   }
+
+  // Também garante que o botão do chat será carregado
+  window.addEventListener("load", () => {
+    const dfMessenger = document.querySelector('df-messenger');
+
+    if (!dfMessenger) return;
+
+    dfMessenger.addEventListener("df-messenger-loaded", () => {
+      console.log("Dialogflow Messenger carregado.");
+    });
+  });
 </script>
+
 
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
