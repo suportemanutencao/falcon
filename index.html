@@ -136,7 +136,7 @@
 
 .chat-tooltip.hidden {
   opacity: 0;
-  transform: translateY(20px); /* desce um pouco ao sumir */
+  transform: translateY(-20px); /* desce um pouco ao sumir */
   pointer-events: none;
 }
 
@@ -204,7 +204,7 @@
     };
 
     // Ocultar tooltip automaticamente após 10 segundos
-    setTimeout(hideTooltip, 70000);
+    setTimeout(hideTooltip, 10000);
 
     // Esperar o carregamento completo do df-messenger
     const waitForButton = () => {
