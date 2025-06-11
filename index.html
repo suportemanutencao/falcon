@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
@@ -114,32 +115,33 @@
       --df-messenger-chat-open-button-display: block;
     }
 
-  .chat-tooltip {
-    position: fixed;
-    bottom: 50px;
-    right: 10px;
-    background-color: #ffcc00;
-    color: #000;
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 16px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    z-index: 9999;
-    animation: bounce 1.5s infinite;
-    transition: opacity 0.3s ease;
-  }
+    /* Balão de destaque com seta */
+    .chat-tooltip {
+      position: fixed;
+      bottom: 50px;
+      right: 10px;
+      background-color: #ffcc00;
+      color: #000;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 100; /* menor que o widget do Dialogflow */
+      animation: bounce 1.5s infinite;
+      transition: opacity 0.3s ease;
+    }
 
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
 
-  .chat-tooltip.hidden {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease;
-  }
+    .chat-tooltip.hidden {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease;
+    }
 
     .chat-tooltip .arrow-down {
       width: 0;
@@ -149,11 +151,6 @@
       border-top: 10px solid #ffcc00;
       margin: 0 auto;
       margin-top: 4px;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
     }
   </style>
 </head>
@@ -177,16 +174,16 @@
     </a>
   </section>
 
-  <!-- Seta + mensagem flutuante -->
-  <div class="chat-tooltip" id="chatTooltip">
-    Fale comigo!👉
+  <!-- Balão flutuante com seta -->
+  <div class="chat-tooltip" id="chat-tooltip">
+    Fale comigo! 👉
     <div class="arrow-down"></div>
   </div>
 
-  <!-- Dialogflow script -->
+  <!-- Script do Dialogflow -->
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
-  <!-- Dialogflow widget -->
+  <!-- Widget do Dialogflow -->
   <df-messenger
     intent="WELCOME"
     chat-title="Falcon"
@@ -194,31 +191,32 @@
     language-code="pt-br">
   </df-messenger>
 
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const dfMessenger = document.querySelector('df-messenger');
-    const tooltip = document.getElementById('chat-tooltip');
+  <!-- Script para ocultar tooltip ao abrir o chat -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const dfMessenger = document.querySelector('df-messenger');
+      const tooltip = document.getElementById('chat-tooltip');
 
-    const waitForShadow = (callback) => {
-      const tryGetButton = () => {
-        const openButton = dfMessenger?.shadowRoot?.querySelector('df-messenger-chat-open-button');
-        const innerButton = openButton?.shadowRoot?.querySelector('button');
-        if (innerButton) {
-          callback(innerButton);
-        } else {
-          setTimeout(tryGetButton, 300);
-        }
+      const waitForShadow = (callback) => {
+        const tryGetButton = () => {
+          const openButton = dfMessenger?.shadowRoot?.querySelector('df-messenger-chat-open-button');
+          const innerButton = openButton?.shadowRoot?.querySelector('button');
+          if (innerButton) {
+            callback(innerButton);
+          } else {
+            setTimeout(tryGetButton, 300);
+          }
+        };
+        tryGetButton();
       };
-      tryGetButton();
-    };
 
-    waitForShadow((chatButton) => {
-      chatButton.addEventListener('click', () => {
-        tooltip?.classList.add('hidden');
+      waitForShadow((chatButton) => {
+        chatButton.addEventListener('click', () => {
+          tooltip?.classList.add('hidden');
+        });
       });
     });
-  });
-</script>
+  </script>
 
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
