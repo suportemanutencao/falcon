@@ -1,171 +1,194 @@
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROV Falcon - Oceânica Engenharia</title>
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ROV Falcon - Oceânica Engenharia</title>
+  <style>
     df-messenger .df-messenger-message-text {
-    text-align: justify;
-  }
+      text-align: justify;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #043927; /* Verde petróleo escuro */
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-        header {
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #043927;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    header {
       text-align: center;
-        padding: 14px 20px 7px 20px; /* topo, lados, baixo */
-       background-color: #025939; /* Verde Petrobras */
-       border-radius: 0 0 20px 20px; /* bordas arredondadas só embaixo */
-        }
-        header h1 {
-         font-size: 2em;
-        text-align: center;
-        }
-        .gallery {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            padding: 60px 20px;
-        }
-.image-container {
-    position: relative;
-    width: 350px;
-    height: auto;
-    overflow: hidden;
-    aspect-ratio: 3/2;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
+      padding: 14px 20px 7px 20px;
+      background-color: #025939;
+      border-radius: 0 0 20px 20px;
+    }
 
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.image-container:hover img {
-    transform: scale(1.1);
-}
-
-.image-container:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.7);
-}
-
-.image-container .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2em;
-    font-weight: bold;
-    color: #ffffff;
-    opacity: 1;
-    pointer-events: none;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.image-container:hover .overlay {
-    transform: scale(1.1);
-    color: #ffcc00; /* muda para amarelo Petrobras */
-}
-
-.image-container:active .overlay {
-    transform: scale(0.95);
-    color: #ffffff;
-}
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #025939;
-            font-size: 0.9em;
-        }
-        @media (max-width: 600px) {
     header h1 {
-        font-size: 1.5em;
+      font-size: 2em;
+      text-align: center;
     }
-    .overlay {
-        font-size: 1.5em;
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 60px 20px;
     }
-}
-    </style>
+
+    .image-container {
+      position: relative;
+      width: 350px;
+      height: auto;
+      overflow: hidden;
+      aspect-ratio: 3/2;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .image-container:hover img {
+      transform: scale(1.1);
+    }
+
+    .image-container:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.7);
+    }
+
+    .image-container .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: #ffffff;
+      opacity: 1;
+      pointer-events: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .image-container:hover .overlay {
+      transform: scale(1.1);
+      color: #ffcc00;
+    }
+
+    .image-container:active .overlay {
+      transform: scale(0.95);
+      color: #ffffff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #025939;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5em;
+      }
+      .overlay {
+        font-size: 1.5em;
+      }
+    }
+
+    /* Botão personalizado animado */
+    .custom-chat-button {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      background-color: #ffcc00;
+      color: #000;
+      padding: 15px 18px;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 0 12px rgba(255, 204, 0, 0.7);
+      cursor: pointer;
+      animation: pulse 1.8s infinite;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.5); }
+      50% { transform: scale(1.15); box-shadow: 0 0 18px rgba(255, 204, 0, 0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.5); }
+    }
+
+    /* Esconde botão original */
+    df-messenger {
+      --df-messenger-chat-open-button-display: none;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>ROV Falcon - Oceânica Engenharia</h1>
-    </header>
+  <header>
+    <h1>ROV Falcon - Oceânica Engenharia</h1>
+  </header>
 
-    <section class="gallery">
-        <a href="https://www.oceanica.com.br" target="_blank">
-            <div class="image-container">
-                <img src="BotFalcon/images/oceanica2.png" alt="Operação Oceânica">
-                <div class="overlay">Oceânica</div>
-            </div>
-        </a>
-        <a href="https://drive.google.com/file/d/1MZgZ8WTvqIrlVmnxtU0WLS9eIfrz_aVA/view" target="_blank">
-            <div class="image-container">
-               <img src="BotFalcon/images/falcon1.jpg" alt="Falcon ROV">
-                <div class="overlay">Manual</div>
-            </div>
-        </a>
-    </section>
-            <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1">
+  <section class="gallery">
+    <a href="https://www.oceanica.com.br" target="_blank">
+      <div class="image-container">
+        <img src="BotFalcon/images/oceanica2.png" alt="Operação Oceânica">
+        <div class="overlay">Oceânica</div>
+      </div>
+    </a>
+    <a href="https://drive.google.com/file/d/1MZgZ8WTvqIrlVmnxtU0WLS9eIfrz_aVA/view" target="_blank">
+      <div class="image-container">
+        <img src="BotFalcon/images/falcon1.jpg" alt="Falcon ROV">
+        <div class="overlay">Manual</div>
+      </div>
+    </a>
+  </section>
 
-</script>
-   
-<df-messenger
-  intent="WELCOME"
-  chat-title="Falcon"
-  agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
-  language-code="pt-br">
-</df-messenger>
-<script>
-  window.addEventListener('dfMessengerLoaded', () => {
-    const interval = setInterval(() => {
-      const messengerFrame = document.querySelector('df-messenger');
-      const shadowRoot = messengerFrame.shadowRoot;
-      const fab = shadowRoot?.querySelector('df-messenger-chat-open-button');
+  <!-- Botão flutuante personalizado -->
+  <div class="custom-chat-button" onclick="openChat()">💬</div>
 
-      if (fab) {
-        const button = fab.shadowRoot?.querySelector('button');
-        if (button) {
-          // Cria a animação diretamente no botão
-          button.style.animation = "pulse 2s infinite";
+  <!-- Dialogflow script -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
-          // Cria o keyframe no documento principal
-          const style = document.createElement('style');
-          style.innerHTML = `
-            @keyframes pulse {
-              0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.7); }
-              50% { transform: scale(1.1); box-shadow: 0 0 10px rgba(255, 204, 0, 1); }
-              100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.7); }
-            }
-          `;
-          document.head.appendChild(style);
+  <!-- Dialogflow widget -->
+  <df-messenger
+    intent="WELCOME"
+    chat-title="Falcon"
+    agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
+    language-code="pt-br">
+  </df-messenger>
 
-          clearInterval(interval); // Para a verificação
-        }
-      }
-    }, 500); // Verifica a cada 500ms até encontrar
-  });
-</script>
-    <footer>
-        &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
-    </footer>
+  <!-- Script para abrir o botão oculto -->
+  <script>
+    function openChat() {
+      const dfMessenger = document.querySelector('df-messenger');
+      const shadowRoot1 = dfMessenger.shadowRoot;
+      if (!shadowRoot1) return;
+
+      const openButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
+      const buttonInside = openButton?.shadowRoot?.querySelector('button');
+      buttonInside?.click();
+    }
+  </script>
+
+  <footer>
+    &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
+  </footer>
 </body>
 </html>
