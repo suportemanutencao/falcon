@@ -122,24 +122,38 @@
     }
 
     /* Balão de destaque com seta */
-    .chat-tooltip {
-      position: fixed;
-      bottom: 75px;
-      right: 0px;
-      background-color: #ffcc00;
-      color: #000;
-      padding: 8px 10px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 16px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      z-index: 999; /* menor que o df-messenger para ficar atrás */
-      animation: bounce 1.5s infinite;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      opacity: 1;
-      transform: translateY(0);
-    }
+.chat-tooltip {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centraliza horizontalmente */
+  justify-content: center;
+  /* seu estilo já existente */
+  position: fixed;
+  bottom: 75px;
+  right: 0px;
+  background-color: #ffcc00;
+  color: #000;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 998; /* mantém atrás do chat */
+  animation: bounce 1.5s infinite;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
 
+.tooltip-text {
+  line-height: 1;
+}
+
+.tooltip-emoji {
+  font-size: 22px; /* pode ajustar o tamanho da mão */
+  line-height: 1;
+  margin-top: 2px; /* espaço entre o texto e a mão */
+}
     .chat-tooltip.hidden {
       opacity: 0;
       transform: translateY(-20px); /* sobe um pouco ao sumir */
@@ -184,10 +198,9 @@
 
   <!-- Balão flutuante com seta -->
   <div class="chat-tooltip" id="chat-tooltip">
-    Fale comigo!👇
-    <div class="arrow-down"></div>
+  <div class="tooltip-text">Fale comigo!</div>
+  <div class="tooltip-emoji">👇</div>
   </div>
-
   <!-- Script do Dialogflow -->
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
