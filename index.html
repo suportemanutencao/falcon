@@ -177,48 +177,68 @@
     language-code="pt-br">
   </df-messenger>
 
-  <script>
-    document.querySelector('.custom-chat-button').addEventListener('click', () => {
-      const dfMessenger = document.querySelector('df-messenger');
-      if (!dfMessenger) {
-        console.error('df-messenger não encontrado');
+<script>
+  const customButton = document.querySelector('.custom-chat-button');
+  const dfMessenger = document.querySelector('df-messenger');
+
+  if (!customButton || !dfMessenger) {
+    console.error('Botão customizado ou df-messenger não encontrado');
+  } else {
+    // Função para clicar no botão interno
+    function clickInternalButton() {
+      try {
+        const shadowRoot1 = dfMessenger.shadowRoot;
+        if (!shadowRoot1) return false;
+
+        const chatOpenButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
+        if (!chatOpenButton) return false;
+
+        const shadowRoot2 = chatOpenButton.shadowRoot;
+        if (!shadowRoot2) return false;
+
+        const innerButton = shadowRoot2.querySelector('button');
+        if (!innerButton) return false;
+
+        innerButton.click();
+        return true;
+      } catch(e) {
+        console.error('Erro ao clicar no botão interno:', e);
+        return false;
+      }
+    }
+
+    // Tenta clicar no botão interno imediatamente e, se falhar, usa MutationObserver para esperar aparecer
+    function setupClickListener() {
+      customButton.addEventListener('click', () => {
+        if (!clickInternalButton()) {
+          console.log('Botão interno não disponível ainda, esperando...');
+        }
+      });
+    }
+
+    // Observador para esperar o botão interno aparecer
+    function observeButton() {
+      const shadowRoot1 = dfMessenger.shadowRoot;
+      if (!shadowRoot1) {
+        setTimeout(observeButton, 300);
         return;
       }
 
-      // Função para tentar abrir o chat clicando no botão interno no Shadow DOM
-      function tryOpenChat(attemptsLeft = 10) {
-        const shadowRoot = dfMessenger.shadowRoot;
-        if (!shadowRoot) {
-          if (attemptsLeft > 0) {
-            setTimeout(() => tryOpenChat(attemptsLeft - 1), 300);
-          }
-          return;
+      const observer = new MutationObserver(() => {
+        const chatOpenButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
+        if (chatOpenButton && chatOpenButton.shadowRoot?.querySelector('button')) {
+          // Botão interno pronto, desconecta observer e configura o listener
+          observer.disconnect();
+          setupClickListener();
         }
+      });
 
-        const chatButton = shadowRoot.querySelector('df-messenger-chat-open-button');
-        if (!chatButton) {
-          if (attemptsLeft > 0) {
-            setTimeout(() => tryOpenChat(attemptsLeft - 1), 300);
-          }
-          return;
-        }
+      observer.observe(shadowRoot1, { childList: true, subtree: true });
+    }
 
-        const innerButton = chatButton.shadowRoot?.querySelector('button');
-        if (!innerButton) {
-          if (attemptsLeft > 0) {
-            setTimeout(() => tryOpenChat(attemptsLeft - 1), 300);
-          }
-          return;
-        }
-
-        // Finalmente clica no botão interno para abrir o chat
-        innerButton.click();
-      }
-
-      tryOpenChat();
-    });
-  </script>
-
+    observeButton();
+  }
+</script>
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
   </footer>
