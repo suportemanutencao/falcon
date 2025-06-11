@@ -126,6 +126,10 @@
       cursor: pointer;
       animation: pulse 1.8s infinite;
       transition: transform 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
     }
 
     @keyframes pulse {
@@ -161,7 +165,7 @@
   </section>
 
   <!-- Botão flutuante personalizado -->
-  <div class="custom-chat-button" onclick="openChat()">⚙️</div>
+  <div class="custom-chat-button">⚙️</div>
 
   <!-- Dialogflow script -->
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
@@ -174,35 +178,34 @@
     language-code="pt-br">
   </df-messenger>
 
-<script>
-  function openChatWhenReady() {
-    const dfMessenger = document.querySelector('df-messenger');
+  <script>
+    function openChatWhenReady() {
+      const dfMessenger = document.querySelector('df-messenger');
 
-    if (!dfMessenger) return;
+      if (!dfMessenger) return;
 
-    const tryOpen = () => {
-      const shadowRoot1 = dfMessenger.shadowRoot;
-      if (!shadowRoot1) {
-        setTimeout(tryOpen, 300);
-        return;
-      }
+      const tryOpen = () => {
+        const shadowRoot1 = dfMessenger.shadowRoot;
+        if (!shadowRoot1) {
+          setTimeout(tryOpen, 300);
+          return;
+        }
 
-      const openButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
-      const buttonInside = openButton?.shadowRoot?.querySelector('button');
+        const openButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
+        const buttonInside = openButton?.shadowRoot?.querySelector('button');
 
-      if (buttonInside) {
-        buttonInside.click();
-      } else {
-        setTimeout(tryOpen, 300);
-      }
-    };
+        if (buttonInside) {
+          buttonInside.click();
+        } else {
+          setTimeout(tryOpen, 300);
+        }
+      };
 
-    tryOpen();
-  }
+      tryOpen();
+    }
 
-  document.querySelector('.custom-chat-button').addEventListener('click', openChatWhenReady);
-</script>
-
+    document.querySelector('.custom-chat-button').addEventListener('click', openChatWhenReady);
+  </script>
 
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
