@@ -114,21 +114,32 @@
       --df-messenger-chat-open-button-display: block;
     }
 
-    .chat-tooltip {
-      position: fixed;
-      bottom: 50px;
-      right: 50px;
-      background: #ffcc00;
-      color: #000;
-      padding: 8px 14px;
-      border-radius: 16px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-      animation: bounce 2s infinite;
-      z-index: 9999;
-      text-align: center;
-    }
+  .chat-tooltip {
+    position: fixed;
+    bottom: 50px;
+    right: 10px;
+    background-color: #ffcc00;
+    color: #000;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    animation: bounce 1.5s infinite;
+    transition: opacity 0.3s ease;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .chat-tooltip.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+  }
 
     .chat-tooltip .arrow-down {
       width: 0;
@@ -183,23 +194,31 @@
     language-code="pt-br">
   </df-messenger>
 
-  <!-- Script para ocultar tooltip ao abrir chat -->
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const tooltip = document.getElementById('chatTooltip');
-      const observer = new MutationObserver(() => {
-        const iframe = document.querySelector('iframe[src*="dialogflow"]');
-        if (iframe && iframe.style.display !== 'none') {
-          tooltip.style.display = 'none';
-        }
-      });
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const dfMessenger = document.querySelector('df-messenger');
+    const tooltip = document.getElementById('chat-tooltip');
 
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
+    const waitForShadow = (callback) => {
+      const tryGetButton = () => {
+        const openButton = dfMessenger?.shadowRoot?.querySelector('df-messenger-chat-open-button');
+        const innerButton = openButton?.shadowRoot?.querySelector('button');
+        if (innerButton) {
+          callback(innerButton);
+        } else {
+          setTimeout(tryGetButton, 300);
+        }
+      };
+      tryGetButton();
+    };
+
+    waitForShadow((chatButton) => {
+      chatButton.addEventListener('click', () => {
+        tooltip?.classList.add('hidden');
       });
     });
-  </script>
+  });
+</script>
 
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
