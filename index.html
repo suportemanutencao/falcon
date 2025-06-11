@@ -161,7 +161,7 @@
   </section>
 
   <!-- Botão flutuante personalizado -->
-  <div class="custom-chat-button" onclick="openChat()">💬</div>
+  <div class="custom-chat-button" onclick="openChat()">🤖</div>
 
   <!-- Dialogflow script -->
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
@@ -186,6 +186,25 @@
       buttonInside?.click();
     }
   </script>
+  <script>
+  function openChat() {
+    const dfMessenger = document.querySelector('df-messenger');
+
+    // Espera até o Shadow DOM estar disponível
+    const waitForButton = setInterval(() => {
+      const shadowRoot1 = dfMessenger.shadowRoot;
+      if (!shadowRoot1) return;
+
+      const openButton = shadowRoot1.querySelector('df-messenger-chat-open-button');
+      const buttonInside = openButton?.shadowRoot?.querySelector('button');
+
+      if (buttonInside) {
+        buttonInside.click(); // Abre o chat
+        clearInterval(waitForButton); // Para de tentar
+      }
+    }, 200); // Tenta a cada 200ms até conseguir
+  }
+</script>
 
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
