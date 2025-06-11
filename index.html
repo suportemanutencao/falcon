@@ -18,7 +18,7 @@
         }
         header {
       text-align: center;
-        padding: 14px 20px 7px 20px; /* topo, lados, baixo */
+        padding: 16px 22px 9px 22px; /* topo, lados, baixo */
        background-color: #025939; /* Verde Petrobras */
        border-radius: 0 0 20px 20px; /* bordas arredondadas só embaixo */
         }
@@ -134,21 +134,34 @@
   agent-id="e32e39a6-5484-48e2-bb05-6cb7ac67de7f"
   language-code="pt-br">
 </df-messenger>
-    <script>
-  window.addEventListener('dfMessengerLoaded', function () {
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.7); }
-        50% { transform: scale(1.1); box-shadow: 0 0 10px rgba(255, 204, 0, 1); }
-        100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.7); }
-      }
+<script>
+  window.addEventListener('dfMessengerLoaded', () => {
+    const interval = setInterval(() => {
+      const messengerFrame = document.querySelector('df-messenger');
+      const shadowRoot = messengerFrame.shadowRoot;
+      const fab = shadowRoot?.querySelector('df-messenger-chat-open-button');
 
-      df-messenger .df-messenger-button {
-        animation: pulse 2s infinite;
+      if (fab) {
+        const button = fab.shadowRoot?.querySelector('button');
+        if (button) {
+          // Cria a animação diretamente no botão
+          button.style.animation = "pulse 2s infinite";
+
+          // Cria o keyframe no documento principal
+          const style = document.createElement('style');
+          style.innerHTML = `
+            @keyframes pulse {
+              0% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.7); }
+              50% { transform: scale(1.1); box-shadow: 0 0 10px rgba(255, 204, 0, 1); }
+              100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 204, 0, 0.7); }
+            }
+          `;
+          document.head.appendChild(style);
+
+          clearInterval(interval); // Para a verificação
+        }
       }
-    `;
-    document.head.appendChild(style);
+    }, 500); // Verifica a cada 500ms até encontrar
   });
 </script>
     <footer>
