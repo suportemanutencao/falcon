@@ -118,8 +118,8 @@
     /* Balão de destaque com seta */
     .chat-tooltip {
       position: fixed;
-      bottom: 50px;
-      right: 10px;
+      bottom: 30px;
+      right: 0px;
       background-color: #ffcc00;
       color: #000;
       padding: 10px 14px;
@@ -192,31 +192,38 @@
   </df-messenger>
 
   <!-- Script para ocultar tooltip ao abrir o chat -->
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const dfMessenger = document.querySelector('df-messenger');
-      const tooltip = document.getElementById('chat-tooltip');
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const dfMessenger = document.querySelector('df-messenger');
+    const tooltip = document.getElementById('chat-tooltip');
 
-      const waitForShadow = (callback) => {
-        const tryGetButton = () => {
-          const openButton = dfMessenger?.shadowRoot?.querySelector('df-messenger-chat-open-button');
-          const innerButton = openButton?.shadowRoot?.querySelector('button');
-          if (innerButton) {
-            callback(innerButton);
-          } else {
-            setTimeout(tryGetButton, 300);
-          }
-        };
-        tryGetButton();
+    const hideTooltip = () => {
+      if (tooltip && !tooltip.classList.contains('hidden')) {
+        tooltip.classList.add('hidden');
+      }
+    };
+
+    const waitForShadow = (callback) => {
+      const tryGetButton = () => {
+        const openButton = dfMessenger?.shadowRoot?.querySelector('df-messenger-chat-open-button');
+        const innerButton = openButton?.shadowRoot?.querySelector('button');
+        if (innerButton) {
+          callback(innerButton);
+        } else {
+          setTimeout(tryGetButton, 300);
+        }
       };
+      tryGetButton();
+    };
 
-      waitForShadow((chatButton) => {
-        chatButton.addEventListener('click', () => {
-          tooltip?.classList.add('hidden');
-        });
-      });
+    // Ocultar tooltip após 10 segundos automaticamente
+    setTimeout(hideTooltip, 10000);
+
+    waitForShadow((chatButton) => {
+      chatButton.addEventListener('click', hideTooltip);
     });
-  </script>
+  });
+</script>
 
   <footer>
     &copy; 2025 Oceânica Engenharia e Consultoria. Todos os direitos reservados.
