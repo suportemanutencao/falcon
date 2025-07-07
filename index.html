@@ -39,26 +39,26 @@
       text-align: center;
     }
 
-    @keyframes moverDesaparecerReaparecer {
-      0% {
-        top: -100px;
-        opacity: 0;
-      }
-      40% {
-        top: 70%;
-        opacity: 1;
-      }
-      50% {
-        opacity: 0;
-      }
-      70% {
-        opacity: 0;
-      }
-      100% {
-        top: 70%;
-        opacity: 1;
-      }
-    }
+   @keyframes moverDesaparecerReaparecer {
+  0% {
+    top: -100px;
+    opacity: 0;
+  }
+  40% {
+    top: 35%;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    top: 35%;
+    opacity: 1;
+  }
+}
 
     @media screen and (orientation: portrait), screen and (orientation: landscape) {
       body {
@@ -69,7 +69,8 @@
   </style>
 </head>
 <body>
-  <h1>Suporte Manutenção<br>ROV Observação</h1>
+  <h1>Suporte Manutenção<br>
+    <span class="verde-petrobras">ROV Observação</span></h1>
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   intent="WELCOME"
