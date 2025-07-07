@@ -5,31 +5,33 @@
   <link rel="icon" href="BotFalcon/images/logo.png" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Suporte ROV Observação</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wgth@900&display=swap" rel="stylesheet">
+
+  <!-- Fonte Montserrat Extra Bold -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:900&display=swap" rel="stylesheet">
+
   <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
       font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
     }
 
     body {
-      background-image: url('BotFalcon/images/FundoSite.png'); /* Caminho do seu GIF */
+      background-image: url('BotFalcon/images/FundoSite.png');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
       background-attachment: fixed;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
       position: relative;
-      overflow: hidden;
     }
 
     h1 {
       position: absolute;
       top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
       color: white;
       font-weight: 900;
       font-size: 2.5rem;
@@ -37,32 +39,69 @@
       opacity: 0;
       animation: moverDesaparecerReaparecer 5s ease-out forwards;
       text-align: center;
-    }
-        /* Cor exclusiva para "ROV Observação" */
-    .verde-petrobras {
-      color: #006341;
+      z-index: 1001;
     }
 
-   @keyframes moverDesaparecerReaparecer {
-  0% {
-    top: -100px;
-    opacity: 0;
-  }
-  40% {
-    top: 30%;
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  70% {
-    opacity: 0;
-  }
-  100% {
-    top: 30%;
-    opacity: 1;
-  }
-}
+
+    @keyframes moverDesaparecerReaparecer {
+      0% {
+        top: -100px;
+        opacity: 0;
+      }
+      40% {
+        top: 30%;
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      70% {
+        opacity: 0;
+      }
+      100% {
+        top: 30%;
+        opacity: 1;
+      }
+    }
+
+    .chat-tooltip {
+      position: fixed;
+      bottom: 75px;
+      right: 5px;
+      background-color: #005f5b;
+      color: #FFFFFF;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 1002;
+      animation: bounce 1.5s infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tooltip-emoji {
+      font-size: 22px;
+      margin-top: 2px;
+    }
+
+    .chat-tooltip.hidden {
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
+      transition: all 0.4s ease;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    df-messenger {
+      z-index: 1003 !important;
+    }
 
     @media screen and (orientation: portrait), screen and (orientation: landscape) {
       body {
@@ -73,23 +112,27 @@
   </style>
 </head>
 <body>
-  <h1>Suporte Manutenção<br>
-    <span class="verde-petrobras">ROV Observação</span></h1>
-  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<!-- Balão flutuante com seta -->
+
+  <h1>
+    Suporte Manutenção<br>ROV Observação
+  </h1>
+
+  <!-- Tooltip -->
   <div class="chat-tooltip" id="chat-tooltip">
-  <div class="tooltip-text">Chat Aqui!</div>
-  <div class="tooltip-emoji">👇</div>
+    <div class="tooltip-text">Chat Aqui!</div>
+    <div class="tooltip-emoji">👇</div>
   </div>
-  <!-- Script do Dialogflow -->
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<df-messenger
-  intent="WELCOME"
-  chat-title="FalconMenu"
-  agent-id="715933f0-6541-4155-b5de-7c7631a68915"
-  language-code="pt-br"
-></df-messenger>
-  <!-- Script para ocultar tooltip ao abrir o chat e após 7 segundos -->
+
+  <!-- Dialogflow Messenger -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="FalconMenu"
+    agent-id="715933f0-6541-4155-b5de-7c7631a68915"
+    language-code="pt-br"
+  ></df-messenger>
+
+  <!-- Script para ocultar o balão -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const tooltip = document.getElementById('chat-tooltip');
@@ -100,10 +143,8 @@
         }
       };
 
-      // Ocultar tooltip automaticamente após 7 segundos
       setTimeout(hideTooltip, 7000);
 
-      // Esperar o carregamento completo do df-messenger e botão interno
       const waitForButton = () => {
         const dfMessenger = document.querySelector('df-messenger');
         if (!dfMessenger) return setTimeout(waitForButton, 300);
@@ -117,7 +158,6 @@
         const button = chatButton.shadowRoot.querySelector('button');
         if (!button) return setTimeout(waitForButton, 300);
 
-        // Quando o botão do chat for clicado, esconda o balão
         button.addEventListener('click', hideTooltip);
       };
 
