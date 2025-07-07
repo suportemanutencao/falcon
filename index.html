@@ -2,48 +2,64 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="BotFalcon/images/logo.png" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Suporte ROV Observação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wgth@900&display=swap" rel="stylesheet">
   <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
+      font-family: 'Montserrat', sans-serif;
     }
 
     body {
-      background-image: url('BotFalcon/images/FundoSite.png'); /* Substitua pelo caminho real do seu GIF */
+      background-image: url('BotFalcon/images/FundoSite.png'); /* Caminho do seu GIF */
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
       background-attachment: fixed;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
     h1 {
+      position: absolute;
+      top: -100px;
       color: white;
-      font-weight: bold;
+      font-weight: 900;
       font-size: 2.5rem;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* sombra suave */
-      animation: flutuar 4s ease-in-out infinite, fadeIn 2s ease-in;
-      margin: 0;
+      text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
+      opacity: 0;
+      animation: moverDesaparecerReaparecer 5s ease-out forwards;
+      text-align: center;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-60px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes moverDesaparecerReaparecer {
+      0% {
+        top: -100px;
+        opacity: 0;
+      }
+      40% {
+        top: 70%;
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      70% {
+        opacity: 0;
+      }
+      100% {
+        top: 70%;
+        opacity: 1;
+      }
     }
 
-    @keyframes flutuar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    /* Garante responsividade mesmo com rotação */
     @media screen and (orientation: portrait), screen and (orientation: landscape) {
       body {
         background-size: cover;
@@ -54,5 +70,12 @@
 </head>
 <body>
   <h1>Suporte Manutenção<br>ROV Observação</h1>
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="FalconMenu"
+  agent-id="715933f0-6541-4155-b5de-7c7631a68915"
+  language-code="pt-br"
+></df-messenger>
 </body>
 </html>
